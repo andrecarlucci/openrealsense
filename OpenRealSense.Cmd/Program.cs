@@ -8,7 +8,6 @@ using OpenRealSense.NativeMethods;
 namespace OpenRealSense.Cmd {
     public class Program {
         public static void Main(string[] args) {
-            //https://github.com/JimBobSquarePants/ImageProcessor
             Console.WriteLine("Start");
 
             var context = Context.Create(11100);
