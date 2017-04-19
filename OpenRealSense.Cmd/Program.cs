@@ -27,13 +27,10 @@ namespace OpenRealSense.Cmd {
 
             var height = 480;
             var width = 640;
+            var oneMeter = device.GetOneMeterValeForDepth();
 
             device.EnableStream(StreamType.depth, width, height, FormatType.z16, 30);
-            device.Start();
-            var oneMeter = 1 / device.GetDepthScale();
-
-            while (true) {
-                device.WaitForFrames();
+            device.StartInBackground(() => {
                 var frameInBytes = device.GetFrameData(StreamType.depth).Bytes;
                 using (var stream = new MemoryStream(frameInBytes)) {
                     using (var reader = new BinaryReader(stream)) {
@@ -60,7 +57,9 @@ namespace OpenRealSense.Cmd {
                         Console.Write(buffer);
                     }
                 }
-            }
+            });
+            Console.ReadLine();
+            device.Stop();
         }
     }
 }

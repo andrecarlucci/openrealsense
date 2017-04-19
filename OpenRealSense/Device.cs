@@ -1,11 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using OpenRealSense.NativeMethods;
 
 namespace OpenRealSense {
     public class Device {
         private IntPtr _device;
+        private bool _started;
+        private bool _backgroundRunning;
+        private Action _backgroundReportAction;
+        private Task _backgroundTask;
 
         internal Device(IntPtr device) {
             _device = device;
@@ -20,7 +24,25 @@ namespace OpenRealSense {
         }
 
         public void Start() {
+            if (_started) {
+                return;
+            }
             Native.Device.rs_start_device(_device);
+        }
+
+        public void StartInBackground(Action newFrameAvailable) {
+            if (_backgroundRunning) {
+                return;
+            }
+            Start();
+            _backgroundRunning = true;
+            _backgroundReportAction = newFrameAvailable;
+            _backgroundTask = Task.Factory.StartNew(() => {
+                while (_backgroundRunning) {
+                    WaitForFrames();
+                    _backgroundReportAction.Invoke();
+                }
+            },TaskCreationOptions.LongRunning);
         }
 
         public void WaitForFrames() {
@@ -44,7 +66,16 @@ namespace OpenRealSense {
             return Native.Device.rs_get_device_depth_scale(_device);
         }
 
+        public float GetOneMeterValeForDepth() {
+            return 1 / GetDepthScale();
+        }
+
         public void Stop() {
+            _started = false;
+            if (_backgroundRunning) {
+                _backgroundRunning = false;
+                _backgroundReportAction = null;
+            }
             Native.Device.rs_stop_device(_device);
         }
     }

@@ -9,7 +9,7 @@ namespace OpenRealSense {
             _context = context;
         }
 
-        public static Context Create(int version) {
+        public static Context Create(int version = 11100) {
             var context = Native.Context.rs_create_context(version);
             return new Context(context);
         }
