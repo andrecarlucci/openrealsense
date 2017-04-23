@@ -296,3 +296,4 @@ paket-files/
 .idea/
 *.sln.iml
 >>>>>>> ddd316dc0a9116255e9833d34fe0ef7a15223a90
+OpenRealSense/libs/x32/realsense.dll.11100

@@ -7,8 +7,6 @@ namespace OpenRealSense.NativeMethods {
 
         public static bool IsWindows() {
             if(System.Runtime.InteropServices.RuntimeInformation.OSDescription.ToUpper().Contains("WINDOWS")) {
-            //var windir = Environment.GetEnvironmentVariable("windir");
-            //if(!String.IsNullOrEmpty(windir) && windir.Contains(@"\") && Directory.Exists(windir)) {
                 RealSenseAssembliesLoader.Load();
                 return true;
             }

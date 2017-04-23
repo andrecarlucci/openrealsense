@@ -10,7 +10,7 @@ namespace OpenRealSense.Cmd {
         public static void Main(string[] args) {
             Console.WriteLine("Start");
 
-            var context = Context.Create(11100);
+            var context = Context.Create(11201);
             Console.WriteLine("Context created");
 
             var num = context.GetDeviceCount();
@@ -45,14 +45,14 @@ namespace OpenRealSense.Cmd {
                                 }
                             }
                             if (y % 20 == 19) {
-                                for (int i = 0; i < coverage.Length; i++) {
+                                for (var i = 0; i < coverage.Length; i++) {
                                     buffer[bufferIndex++] = " .:nhBXWW"[coverage[i] / 25];
                                     coverage[i] = 0;
                                 }
                                 buffer[bufferIndex++] = '\n';
                             }
                         }
-                        buffer[bufferIndex++] = ' ';
+                        buffer[bufferIndex] = ' ';
                         Console.WriteLine();
                         Console.Write(buffer);
                     }

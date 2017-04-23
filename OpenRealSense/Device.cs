@@ -9,7 +9,6 @@ namespace OpenRealSense {
         private bool _started;
         private bool _backgroundRunning;
         private Action _backgroundReportAction;
-        private Task _backgroundTask;
 
         internal Device(IntPtr device) {
             _device = device;
@@ -37,7 +36,7 @@ namespace OpenRealSense {
             Start();
             _backgroundRunning = true;
             _backgroundReportAction = newFrameAvailable;
-            _backgroundTask = Task.Factory.StartNew(() => {
+            Task.Factory.StartNew(() => {
                 while (_backgroundRunning) {
                     WaitForFrames();
                     _backgroundReportAction.Invoke();
@@ -50,7 +49,7 @@ namespace OpenRealSense {
         }
 
         public FrameData GetFrameData(StreamType stream) {
-            var poiterToData = Native.Device.rs_get_frame_data(_device, stream);
+            var pointerToData = Native.Device.rs_get_frame_data(_device, stream);
             var width = Native.Device.rs_get_stream_width(_device, stream);
             var height = Native.Device.rs_get_stream_height(_device, stream);
             var format = Native.Device.rs_get_stream_format(_device, stream);
@@ -58,7 +57,7 @@ namespace OpenRealSense {
             var bitsPerPixel = format.BitsPerPixel();
             var length = bitsPerPixel/8*width*height;
             var b = new byte[length];
-            Marshal.Copy(poiterToData, b, 0, length);
+            Marshal.Copy(pointerToData, b, 0, length);
             return new FrameData(b, width, height, format);
         }
 
