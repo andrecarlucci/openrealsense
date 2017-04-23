@@ -18,7 +18,7 @@ namespace OpenRealSense {
             return Native.Device.rs_get_device_name(_device);
         }
 
-        public void EnableStream(StreamType stream, int width = 640, int height = 480, FormatType format = FormatType.z16, int framerate = 30) {
+        public void EnableStream(StreamType stream, int width = 640, int height = 480, FormatType format = FormatType.Z16, int framerate = 30) {
             Native.Device.rs_enable_stream(_device, stream, width, height, format, framerate);
         }
 

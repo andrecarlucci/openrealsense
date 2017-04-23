@@ -29,9 +29,9 @@ namespace OpenRealSense.Cmd {
             var width = 640;
             var oneMeter = device.GetOneMeterValeForDepth();
 
-            device.EnableStream(StreamType.depth, width, height, FormatType.z16, 30);
+            device.EnableStream(StreamType.Depth, width, height, FormatType.Z16, 30);
             device.StartInBackground(() => {
-                var frameInBytes = device.GetFrameData(StreamType.depth).Bytes;
+                var frameInBytes = device.GetFrameData(StreamType.Depth).Bytes;
                 using (var stream = new MemoryStream(frameInBytes)) {
                     using (var reader = new BinaryReader(stream)) {
                         var buffer = new char[(width / 10 + 1) * (height / 20 + 1)];
