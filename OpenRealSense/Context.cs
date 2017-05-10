@@ -10,16 +10,16 @@ namespace OpenRealSense {
         }
 
         public static Context Create(int version = 11201) {
-            var context = Native.Context.rs_create_context(version);
+            var context = Native.Run(NativeMethods.Context.rs_create_context, version);
             return new Context(context);
         }
 
         public int GetDeviceCount() {
-            return Native.Context.rs_get_device_count(_context);
+            return Native.Run(NativeMethods.Context.rs_get_device_count, _context);
         }
 
         public Device GetDevice(int index) {
-            var device = Native.Context.rs_get_device(_context, index);
+            var device = Native.Run(NativeMethods.Context.rs_get_device,_context, index);
             return new Device(device);
         }
 
@@ -27,7 +27,7 @@ namespace OpenRealSense {
             if (_context == IntPtr.Zero) {
                 return;
             }
-            Native.Context.rs_delete_context(_context);
+            Native.Run(NativeMethods.Context.rs_delete_context,_context);
             _context = IntPtr.Zero;
         }
         public void Dispose() {

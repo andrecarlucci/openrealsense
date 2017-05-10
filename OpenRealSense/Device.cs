@@ -15,18 +15,18 @@ namespace OpenRealSense {
         }
 
         public string GetDeviceName() {
-            return Native.Device.rs_get_device_name(_device);
+            return Native.Run(NativeMethods.Device.rs_get_device_name,_device);
         }
 
         public void EnableStream(StreamType stream, int width = 640, int height = 480, FormatType format = FormatType.Z16, int framerate = 30) {
-            Native.Device.rs_enable_stream(_device, stream, width, height, format, framerate);
+            Native.Run(NativeMethods.Device.rs_enable_stream, _device, stream, width, height, format, framerate);
         }
 
         public void Start() {
             if (_started) {
                 return;
             }
-            Native.Device.rs_start_device(_device);
+            Native.Run(NativeMethods.Device.rs_start_device,_device);
         }
 
         public void StartInBackground(Action newFrameAvailable) {
@@ -45,14 +45,14 @@ namespace OpenRealSense {
         }
 
         public void WaitForFrames() {
-            Native.Device.rs_wait_for_frames(_device);
+            Native.Run(NativeMethods.Device.rs_wait_for_frames,_device);
         }
 
         public FrameData GetFrameData(StreamType stream) {
-            var pointerToData = Native.Device.rs_get_frame_data(_device, stream);
-            var width = Native.Device.rs_get_stream_width(_device, stream);
-            var height = Native.Device.rs_get_stream_height(_device, stream);
-            var format = Native.Device.rs_get_stream_format(_device, stream);
+            var pointerToData = Native.Run(NativeMethods.Device.rs_get_frame_data,_device, stream);
+            var width = Native.Run(NativeMethods.Device.rs_get_stream_width,_device, stream);
+            var height = Native.Run(NativeMethods.Device.rs_get_stream_height,_device, stream);
+            var format = Native.Run(NativeMethods.Device.rs_get_stream_format,_device, stream);
 
             var bitsPerPixel = format.BitsPerPixel();
             var length = bitsPerPixel/8*width*height;
@@ -62,7 +62,7 @@ namespace OpenRealSense {
         }
 
         public float GetDepthScale() {
-            return Native.Device.rs_get_device_depth_scale(_device);
+            return Native.Run(NativeMethods.Device.rs_get_device_depth_scale,_device);
         }
 
         public float GetOneMeterValeForDepth() {
@@ -75,7 +75,7 @@ namespace OpenRealSense {
                 _backgroundRunning = false;
                 _backgroundReportAction = null;
             }
-            Native.Device.rs_stop_device(_device);
+            Native.Run(NativeMethods.Device.rs_stop_device,_device);
         }
     }
 }

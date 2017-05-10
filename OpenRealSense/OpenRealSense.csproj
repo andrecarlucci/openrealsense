@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.4</TargetFramework>
+    <TargetFramework>netstandard1.5</TargetFramework>
     <AssemblyName>OpenRealSense</AssemblyName>
     <PackageId>OpenRealSense</PackageId>
     <NetStandardImplicitPackageVersion>1.6.0</NetStandardImplicitPackageVersion>
@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="libs\linux\realsense.dll" />
     <EmbeddedResource Include="libs\x32\realsense.dll" />
     <EmbeddedResource Include="libs\x64\realsense.dll" />
   </ItemGroup>

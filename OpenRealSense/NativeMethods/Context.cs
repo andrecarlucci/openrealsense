@@ -1,7 +1,8 @@
 using System;
 using System.Runtime.InteropServices;
+using OpenRealSense.NativeMethods.Windows;
 
-namespace OpenRealSense.NativeMethods.Windows {
+namespace OpenRealSense.NativeMethods {
     public static class Context {
         [DllImport(DllSource.Path)]
         public static extern IntPtr rs_create_context(int api_version, out IntPtr error);

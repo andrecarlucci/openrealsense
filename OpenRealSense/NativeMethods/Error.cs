@@ -1,7 +1,8 @@
 using System;
 using System.Runtime.InteropServices;
+using OpenRealSense.NativeMethods.Windows;
 
-namespace OpenRealSense.NativeMethods.Linux {
+namespace OpenRealSense.NativeMethods {
     public static class Error {
         [DllImport(DllSource.Path)]
         public static extern string rs_get_failed_function(IntPtr error);

@@ -1,7 +1,8 @@
 using System;
 using System.Runtime.InteropServices;
+using OpenRealSense.NativeMethods.Windows;
 
-namespace OpenRealSense.NativeMethods.Windows {
+namespace OpenRealSense.NativeMethods {
 
     public static class Device {
         [DllImport(DllSource.Path)]
