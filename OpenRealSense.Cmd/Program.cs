@@ -9,6 +9,8 @@ namespace OpenRealSense.Cmd {
     public class Program {
         public static void Main(string[] args) {
             Console.WriteLine("Start");
+            var platform = IntPtr.Size == 8 ? "x64" : "x32";
+            Console.WriteLine($"Platform: {platform}");
 
             var context = Context.Create(11201);
             Console.WriteLine("Context created");

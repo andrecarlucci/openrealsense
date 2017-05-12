@@ -7,6 +7,7 @@ namespace OpenRealSense.NativeMethods {
         static Native() {
             if (System.Runtime.InteropServices.RuntimeInformation.OSDescription.ToUpper().Contains("WINDOWS")) {
                 RealSenseAssembliesLoader.LoadWindows();
+                return;
             }
             RealSenseAssembliesLoader.LoadLinux();
         }

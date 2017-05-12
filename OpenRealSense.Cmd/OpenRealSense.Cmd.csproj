@@ -12,6 +12,8 @@
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'" />
+
   <ItemGroup>
     <ProjectReference Include="..\OpenRealSense\OpenRealSense.csproj" />
   </ItemGroup>
